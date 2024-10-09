@@ -41,7 +41,7 @@ public class Splash extends JFrame{                                             
             }
         };
         
-        progressBar.setBounds(400, 650, 400, 4);                                                // Make it thinner
+        progressBar.setBounds(200, 430, 400, 4);                                                // Make it thinner
         progressBar.setStringPainted(false);                                                    // Remove percentage text
         progressBar.setBorderPainted(false);                                                    // Remove border
         progressBar.setBackground(new Color(200, 200, 200));
@@ -57,7 +57,7 @@ public class Splash extends JFrame{                                             
         try {
             for (progress = 0; progress <= 100; progress += 1) {
                 progressBar.setValue(progress);
-                Thread.sleep(70); // Adjust speed of loading
+                Thread.sleep(30); // Adjust speed of loading
             }
             
             // After loading completes
