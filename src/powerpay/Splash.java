@@ -69,7 +69,7 @@ public class Splash extends JFrame{                                             
         try {
             for (progress = 0; progress <= 100; progress += 1) {
                 progressBar.setValue(progress);
-                Thread.sleep(30); // Adjust speed of loading
+                Thread.sleep(30);                                                              // Mu;tithreading concept: Adjust speed of loading
             }
             
             // After loading completes
@@ -97,7 +97,6 @@ public class Splash extends JFrame{                                             
     public static void main(String arg[]){
         // Create anonymous object in Splash class
         new Splash();                                                                           // We could also write Splash s = new Splash() : But we write this when we have to use 's' in the code if not then make anonymous object.
-        
         
         
     }
