@@ -1,7 +1,11 @@
 package powerpay;
+
+
 import java.awt.*;
 import javax.swing.*;
 import java.io.InputStream;
+
+
 public class Login extends JFrame {
     // Declare font at class level
     private Font spaceGrotesk;
@@ -32,10 +36,16 @@ public class Login extends JFrame {
         
         setLayout(null);
         
+        int frameWidth = 850;
+        int frameHeight = 550;
+        
+        // Adjust the split: 40% orange, 60% white
+        int splitPoint = (int)(frameWidth * 0.43);                                     // To change space of orange on the frame
+        
         // Add orange background panel for the left side
         JPanel leftPanel = new JPanel();
         leftPanel.setBackground(new Color(255, 203, 164));
-        leftPanel.setBounds(0, 0, 450, 550);
+        leftPanel.setBounds(0, 0, splitPoint, frameHeight);
         leftPanel.setLayout(null);
         add(leftPanel);
         
@@ -65,20 +75,20 @@ public class Login extends JFrame {
             }
         };
         rightPanel.setBackground(new Color(255, 203, 164));
-        rightPanel.setBounds(450, 0, 400, 550);
+        rightPanel.setBounds(splitPoint - 0, 0, frameWidth - splitPoint + 50, frameHeight);
         rightPanel.setLayout(null);
         add(rightPanel);
         
         // Add language selection with Space Grotesk
         JLabel languageLabel = new JLabel("English (UK)");
-        languageLabel.setBounds(270, 20, 100, 30);
+        languageLabel.setBounds(360, 20, 100, 30);
         languageLabel.setFont(spaceGrotesk.deriveFont(14f));
         languageLabel.setForeground(new Color(0, 0, 0));
         rightPanel.add(languageLabel);
         
          // Add dropdown arrow icon
         JLabel arrowLabel = new JLabel("▼");
-        arrowLabel.setBounds(rightPanel.getWidth() - 44, 20, 20, 30);
+        arrowLabel.setBounds(rightPanel.getWidth() - 90, 20, 20, 30);
         arrowLabel.setFont(new Font("Arial Unicode MS", Font.PLAIN, 12));
         arrowLabel.setForeground(new Color(0, 0, 0));
         rightPanel.add(arrowLabel);
