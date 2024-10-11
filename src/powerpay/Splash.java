@@ -1,10 +1,11 @@
 
 
-package PowerPay;
+package powerpay;
 
 
 import javax.swing.*;
 import java.awt.*;
+
 
 public class Splash extends JFrame{                                                             // JFrame: Class of swing
     private JProgressBar progressBar;                                                           // JProgressBar is a Swing component that shows progress visually
@@ -76,7 +77,10 @@ public class Splash extends JFrame{                                             
             Thread.sleep(500); // Short pause at the end
             setVisible(false);
             // Add your next frame here, for example:
-            // new Login();
+            //new Login();
+            SwingUtilities.invokeLater(() -> {
+                new Login();
+            });
             dispose();
             
         } catch (Exception e) {
