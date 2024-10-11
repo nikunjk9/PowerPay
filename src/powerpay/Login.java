@@ -8,25 +8,30 @@ import java.io.InputStream;
 
 public class Login extends JFrame {
     // Declare font at class level
-    private Font spaceGrotesk;
+    private Font spaceGroteskBold;
+    private Font spaceGroteskRegular;
     
-    // Method to load Space Grotesk font
+    // Method to load Space Grotesk fonts
     private void loadFonts() {
         try {
-            // Load font from the font file
-            InputStream is = getClass().getResourceAsStream("/fonts/SpaceGrotesk-Regular.otf");
+            // Load bold font from the font file
+            InputStream isBold = getClass().getResourceAsStream("/fonts/SpaceGrotesk-Bold.otf");
+            spaceGroteskBold = Font.createFont(Font.TRUETYPE_FONT, isBold);
             
-            // Create font
-            spaceGrotesk = Font.createFont(Font.TRUETYPE_FONT, is);
+            // Load regular font from the font file
+            InputStream isRegular = getClass().getResourceAsStream("/fonts/SpaceGrotesk-Regular.otf");
+            spaceGroteskRegular = Font.createFont(Font.TRUETYPE_FONT, isRegular);
             
-            // Register font with the GraphicsEnvironment
+            // Register fonts with the GraphicsEnvironment
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(spaceGrotesk);
+            ge.registerFont(spaceGroteskBold);
+            ge.registerFont(spaceGroteskRegular);
             
         } catch (Exception e) {
             e.printStackTrace();
-            // Fallback font if Space Grotesk fails to load
-            spaceGrotesk = new Font("Arial", Font.PLAIN, 12);
+            // Fallback fonts if Space Grotesk fails to load
+            spaceGroteskBold = new Font("Arial", Font.BOLD, 12);
+            spaceGroteskRegular = new Font("Arial", Font.PLAIN, 12);
         }
     }
     
@@ -52,14 +57,14 @@ public class Login extends JFrame {
         // Add PowerPay text with Space Grotesk
         JLabel titleLabel = new JLabel("PowerPay");
         titleLabel.setBounds(32, 55, 300, 50);
-        titleLabel.setFont(spaceGrotesk.deriveFont(Font.BOLD, 40f));  // Bold weight for title
+        titleLabel.setFont(spaceGroteskBold.deriveFont(Font.BOLD, 40f));  // Bold weight for title
         titleLabel.setForeground(new Color(0, 0, 0));
         leftPanel.add(titleLabel);
         
         // Add tagline text with Space Grotesk
         JLabel taglineLabel = new JLabel("<html>Streamlining Your Energy, Simplifying Your Payments!</html>");
         taglineLabel.setBounds(32, 105, 300, 50);
-        taglineLabel.setFont(spaceGrotesk.deriveFont(16f));  // Regular weight for tagline
+        taglineLabel.setFont(spaceGroteskRegular.deriveFont(14f));  // Regular weight for tagline
         taglineLabel.setForeground(new Color(0, 0, 0));
         leftPanel.add(taglineLabel);
         
@@ -72,6 +77,8 @@ public class Login extends JFrame {
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2d.setColor(Color.WHITE);
                 g2d.fillRoundRect(-0, 0, getWidth() + 50, getHeight(), 100, 100);
+                
+                
             }
         };
         rightPanel.setBackground(new Color(255, 203, 164));
@@ -82,7 +89,7 @@ public class Login extends JFrame {
         // Add language selection with Space Grotesk
         JLabel languageLabel = new JLabel("English (UK)");
         languageLabel.setBounds(360, 20, 100, 30);
-        languageLabel.setFont(spaceGrotesk.deriveFont(14f));
+        languageLabel.setFont(spaceGroteskRegular.deriveFont(14f));
         languageLabel.setForeground(new Color(0, 0, 0));
         rightPanel.add(languageLabel);
         
