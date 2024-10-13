@@ -13,7 +13,7 @@ public class Login extends JFrame {
     private Font spaceGroteskRegular;
     
     // Declare image field
-    private Image characterImage;
+    private Image characterImage;                                                               // Added a new field to store the loaded image.
     
     // Method to load Space Grotesk fonts
     private void loadFonts() {
