@@ -4,12 +4,16 @@ package powerpay;
 import java.awt.*;
 import javax.swing.*;
 import java.io.InputStream;
+import java.awt.geom.AffineTransform;
 
 
 public class Login extends JFrame {
     // Declare font at class level
     private Font spaceGroteskBold;
     private Font spaceGroteskRegular;
+    
+    // Declare image field
+    private Image characterImage;
     
     // Method to load Space Grotesk fonts
     private void loadFonts() {
@@ -35,9 +39,22 @@ public class Login extends JFrame {
         }
     }
     
+    // Method to load the character image
+    private void loadImage() {
+        try {
+            ImageIcon icon = new ImageIcon(getClass().getResource("/icon/Customer.png"));
+            characterImage = icon.getImage();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error loading image: " + e.getMessage());
+        }
+    }
+    
+    
     Login() {
         // Load font first
         loadFonts();
+        loadImage();
         
         setLayout(null);
         
@@ -58,16 +75,48 @@ public class Login extends JFrame {
         // Add PowerPay text with Space Grotesk
         JLabel titleLabel = new JLabel("PowerPay");
         titleLabel.setBounds(32, 55, 300, 50);
-        titleLabel.setFont(spaceGroteskBold.deriveFont(Font.BOLD, 40f));  // Bold weight for title
+        titleLabel.setFont(spaceGroteskBold.deriveFont(Font.BOLD, 43f));  // Bold weight for title
         titleLabel.setForeground(new Color(0, 0, 0));
         leftPanel.add(titleLabel);
         
         // Add tagline text with Space Grotesk
         JLabel taglineLabel = new JLabel("<html>Streamlining Your Energy, Simplifying Your Payments!</html>");
         taglineLabel.setBounds(32, 105, 300, 50);
-        taglineLabel.setFont(spaceGroteskRegular.deriveFont(14f));  // Regular weight for tagline
+        taglineLabel.setFont(spaceGroteskRegular.deriveFont(14.3f));  // Regular weight for tagline
         taglineLabel.setForeground(new Color(0, 0, 0));
         leftPanel.add(taglineLabel);
+        
+        
+        
+        JPanel imagePanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                if (characterImage != null) {
+                    Graphics2D g2d = (Graphics2D) g.create();
+                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+                    
+                    // Create an AffineTransform for positioning and rotation
+                    AffineTransform at = new AffineTransform();
+                    
+                    // First, translate to the desired position
+                    at.translate(-92, 182);
+                    
+                    // Then, apply a slight rotation (adjust the angle as needed)
+                    double rotationAngle = Math.toRadians(-7); // 5 degrees rotation, adjust as needed
+                    at.rotate(rotationAngle, 640 / 2.0, 473 / 2.0); // Rotate around the center of the image
+                    
+                    g2d.setTransform(at);
+                    g2d.drawImage(characterImage, 0, 0, 644, 478, this);
+                    g2d.dispose();
+                }
+            }
+        };
+        imagePanel.setBounds(0, 0, splitPoint, frameHeight);
+        imagePanel.setOpaque(false);
+        leftPanel.add(imagePanel);
+        
         
         // Add white curved panel for the right side
         JPanel rightPanel = new JPanel() {
