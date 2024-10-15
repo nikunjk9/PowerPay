@@ -11,6 +11,8 @@ public class Login extends JFrame {
     // Declare font at class level
     private Font spaceGroteskBold;
     private Font spaceGroteskRegular;
+    private Font telegrafBold;
+    private Font telegrafRegular;
     
     // Declare image field
     private Image characterImage;                                                               // Added a new field to store the loaded image.
@@ -18,24 +20,40 @@ public class Login extends JFrame {
     // Method to load Space Grotesk fonts
     private void loadFonts() {
         try {
-            // Load bold font from the font file
             InputStream isBold = getClass().getResourceAsStream("/fonts/SpaceGrotesk-Bold.otf");
             spaceGroteskBold = Font.createFont(Font.TRUETYPE_FONT, isBold);
             
-            // Load regular font from the font file
             InputStream isRegular = getClass().getResourceAsStream("/fonts/SpaceGrotesk-Regular.otf");
             spaceGroteskRegular = Font.createFont(Font.TRUETYPE_FONT, isRegular);
             
-            // Register fonts with the GraphicsEnvironment
+            // Register Space Grotesk fonts
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(spaceGroteskBold);
             ge.registerFont(spaceGroteskRegular);
-            
         } catch (Exception e) {
             e.printStackTrace();
-            // Fallback fonts if Space Grotesk fails to load
+            System.out.println("Error loading Space Grotesk fonts. Falling back to default.");
             spaceGroteskBold = new Font("Arial", Font.BOLD, 12);
             spaceGroteskRegular = new Font("Arial", Font.PLAIN, 12);
+        }
+
+        try {
+            // Load Telegraf fonts
+            InputStream isTelegrafBold = getClass().getResourceAsStream("/fonts/PPTelegraf-UltraBold.otf");
+            telegrafBold = Font.createFont(Font.TRUETYPE_FONT, isTelegrafBold);
+            
+            InputStream isTelegrafRegular = getClass().getResourceAsStream("/fonts/PPTelegraf-Regular.otf");
+            telegrafRegular = Font.createFont(Font.TRUETYPE_FONT, isTelegrafRegular);
+            
+            // Register Telegraf fonts
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(telegrafBold);
+            ge.registerFont(telegrafRegular);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error loading Telegraf fonts. Falling back to default.");
+            telegrafBold = new Font("Arial", Font.BOLD, 12);
+            telegrafRegular = new Font("Arial", Font.PLAIN, 12);
         }
     }
     
@@ -50,6 +68,19 @@ public class Login extends JFrame {
         }
     }
     
+    private void addIconToField(JTextField field, String iconPath) {
+        try {
+            ImageIcon icon = new ImageIcon(getClass().getResource(iconPath));
+            Image img = icon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+            icon = new ImageIcon(img);
+            field.setLayout(new BorderLayout());
+            field.add(new JLabel(icon), BorderLayout.WEST);
+            field.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 10));
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error loading icon: " + e.getMessage());
+        }
+    }
     
     Login() {
         // Load font first
@@ -125,7 +156,7 @@ public class Login extends JFrame {
                 super.paintComponent(g);
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2d.setColor(Color.WHITE);
+                g2d.setColor(new Color(0xFFFAFA)); // New shade of white
                 g2d.fillRoundRect(-0, 0, getWidth() + 50, getHeight(), 100, 100);
                 
                 
@@ -150,6 +181,98 @@ public class Login extends JFrame {
         arrowLabel.setFont(new Font("Arial Unicode MS", Font.PLAIN, 12));
         arrowLabel.setForeground(new Color(0, 0, 0));
         rightPanel.add(arrowLabel);
+        
+        // New login components
+        JLabel loginAsLabel = new JLabel("Login as");
+        loginAsLabel.setBounds(70, 80, 200, 30);
+        loginAsLabel.setFont(telegrafBold.deriveFont(16f));
+        rightPanel.add(loginAsLabel);
+
+        String[] loginOptions = {"Admin", "Customer"};
+        JComboBox<String> loginAsComboBox = new JComboBox<>(loginOptions);
+        loginAsComboBox.setBounds(70, 115, 360, 40);
+        loginAsComboBox.setFont(telegrafRegular.deriveFont(14f));
+        rightPanel.add(loginAsComboBox);
+
+        JLabel usernameLabel = new JLabel("Username");
+        usernameLabel.setBounds(70, 170, 200, 30);
+        usernameLabel.setFont(telegrafBold.deriveFont(16f));
+        rightPanel.add(usernameLabel);
+
+        JTextField usernameField = new JTextField("Enter your username") {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(new Color(0xFFFFFF));
+                g2.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 20, 20);
+                super.paintComponent(g2);
+                // Add space for icon (you'll need to add the actual icon)
+                g2.setColor(new Color(0xFFFAFA));
+                g2.fillRect(5, 5, 30, getHeight() - 10);
+                g2.dispose();
+            }
+        };
+        usernameField.setBounds(70, 205, 360, 40);
+        usernameField.setFont(telegrafRegular.deriveFont(14f));
+        addIconToField(usernameField, "/icons/user_icon.png"); 
+        usernameField.setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 10));
+        rightPanel.add(usernameField);
+
+        JLabel passwordLabel = new JLabel("Password");
+        passwordLabel.setBounds(70, 260, 200, 30);
+        passwordLabel.setFont(telegrafBold.deriveFont(16f));
+        rightPanel.add(passwordLabel);
+
+        JPasswordField passwordField = new JPasswordField("Enter your Password") {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(new Color(0xFFFFFF));
+                g2.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 20, 20);
+                super.paintComponent(g2);
+                // Add space for icon (you'll need to add the actual icon)
+                g2.setColor(new Color(0xFFFAFA));
+                g2.fillRect(5, 5, 30, getHeight() - 10);
+                g2.dispose();
+            }
+        };
+        passwordField.setBounds(70, 295, 360, 40);
+        passwordField.setFont(telegrafRegular.deriveFont(14f));
+        passwordField.setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 10));
+        rightPanel.add(passwordField);
+
+        JCheckBox rememberMeCheckBox = new JCheckBox("Remember me");
+        rememberMeCheckBox.setBounds(70, 345, 150, 30);
+        rememberMeCheckBox.setFont(telegrafRegular.deriveFont(14f));
+        rightPanel.add(rememberMeCheckBox);
+
+        JLabel forgotPasswordLabel = new JLabel("Forgot password?");
+        forgotPasswordLabel.setBounds(300, 345, 150, 30);
+        forgotPasswordLabel.setFont(telegrafRegular.deriveFont(14f));
+        forgotPasswordLabel.setForeground(new Color(0xFF7500));
+        rightPanel.add(forgotPasswordLabel);
+
+        JButton loginButton = new JButton("Login");
+        loginButton.setBounds(70, 390, 360, 40);
+        loginButton.setFont(telegrafBold.deriveFont(16f));
+        loginButton.setBackground(new Color(0xFF7500));
+        loginButton.setForeground(Color.WHITE);
+        loginButton.setBorderPainted(false);
+        rightPanel.add(loginButton);
+
+        JLabel noAccountLabel = new JLabel("Don't have an account?");
+        noAccountLabel.setBounds(120, 440, 200, 30);
+        noAccountLabel.setFont(telegrafRegular.deriveFont(14f));
+        rightPanel.add(noAccountLabel);
+
+        JLabel signUpLabel = new JLabel("Sign Up");
+        signUpLabel.setBounds(300, 440, 100, 30);
+        signUpLabel.setFont(telegrafRegular.deriveFont(14f));
+        signUpLabel.setForeground(new Color(0xFF7500));
+        rightPanel.add(signUpLabel);
+        
         
         // Frame settings
         setSize(850, 550);
