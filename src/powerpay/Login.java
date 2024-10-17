@@ -98,7 +98,6 @@ public class Login extends JFrame {
         // Add orange background panel for the left side
         JPanel leftPanel = new JPanel();
         leftPanel.setBackground(new Color(0xFDC18F));
-        //leftPanel.setBackground(new Color(255, 203, 164));
         leftPanel.setBounds(0, 0, splitPoint, frameHeight);
         leftPanel.setLayout(null);
         add(leftPanel);
@@ -163,7 +162,6 @@ public class Login extends JFrame {
             }
         };
         rightPanel.setBackground(new Color(0xFDC18F));
-        //rightPanel.setBackground(new Color(255, 203, 164));
         rightPanel.setBounds(splitPoint - 0, 0, frameWidth - splitPoint + 50, frameHeight);
         rightPanel.setLayout(null);
         add(rightPanel);
@@ -215,7 +213,7 @@ public class Login extends JFrame {
         };
         usernameField.setBounds(70, 205, 360, 40);
         usernameField.setFont(telegrafRegular.deriveFont(14f));
-        addIconToField(usernameField, "/icons/user_icon.png"); 
+        addIconToField(usernameField, "/icons/user.png"); 
         usernameField.setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 10));
         rightPanel.add(usernameField);
 
