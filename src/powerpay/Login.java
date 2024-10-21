@@ -117,7 +117,7 @@ public class Login extends JFrame {
         leftPanel.add(taglineLabel);
         
         
-        
+        // Add panel to display the character image
         JPanel imagePanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -224,7 +224,7 @@ public class Login extends JFrame {
         rightPanel.add(passwordLabel);
         
         
-
+        // 
         JPasswordField passwordField = new JPasswordField("Enter your Password") {
             @Override
             protected void paintComponent(Graphics g) {
