@@ -211,9 +211,10 @@ public class Login extends JFrame {
                 g2.dispose();
             }
         };
+        
         usernameField.setBounds(70, 205, 360, 40);
         usernameField.setFont(telegrafRegular.deriveFont(14f));
-        addIconToField(usernameField, "/icons/user.png"); 
+        //addIconToField(usernameField, "/icons/user.png"); 
         usernameField.setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 10));
         rightPanel.add(usernameField);
 
@@ -221,6 +222,8 @@ public class Login extends JFrame {
         passwordLabel.setBounds(70, 260, 200, 30);
         passwordLabel.setFont(telegrafBold.deriveFont(16f));
         rightPanel.add(passwordLabel);
+        
+        
 
         JPasswordField passwordField = new JPasswordField("Enter your Password") {
             @Override
